@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='ASCII'?>
+<model>
+  <model-type>Shooting</model-type>
+  <dimension>3</dimension>
+  <template>
+    <object id="LV">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_LV.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="RV">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_RV.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="LA">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_LA.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="RA">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_RA.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="AO">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_AO.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="PA">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_PA.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="MV">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_MV.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="TV">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_TV.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="AV">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_AV.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="PV">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_PV.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="APP">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_APP.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="LSPV">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_LSPV.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="LIPV">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_LIPV.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="RIPV">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_RIPV.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="RSPV">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_RSPV.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="SVC">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_SVC.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="IVC">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_IVC.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="AB">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_AB.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="RIPVB">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_RIPVB.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="LIPVB">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_LIPVB.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="LSPVB">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_LSPVB.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="RSPVB">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_RSPVB.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="SVCB">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_SVCB.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+    <object id="IVCB">
+      <filename>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__Template_IVCB.vtk</filename>
+      <deformable-object-type>Polyline</deformable-object-type>
+    </object>
+  </template>
+  <initial-control-points>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/DeterministicAtlas__EstimatedParameters__ControlPoints.txt</initial-control-points>
+  <initial-momenta>/home/mat/Python/code/CardiacMeshConstruction/DataInput/Deformetrica/Template/Weighted_momenta.txt</initial-momenta>
+  <deformation-parameters>
+    <kernel-width>10</kernel-width>
+    <kernel-type>keops</kernel-type>
+  </deformation-parameters>
+</model>

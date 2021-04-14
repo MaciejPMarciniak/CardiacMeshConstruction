@@ -83,9 +83,9 @@ def merged_shapes_generation(id_from=0,
             exit('Provide proper model generation type: "tetra" or "surface"')
 
 
-def pipeline(runOnlyTetra=False):
+def pipeline(run_only_tetra=False):
 
-    if not runOnlyTetra:
+    if not run_only_tetra:
         print('PCA on 19 cases')
         pca_get_predefined_combinations()
 
@@ -104,4 +104,4 @@ def pipeline(runOnlyTetra=False):
 
 if __name__ == '__main__':
 
-    pipeline()
+    pipeline(1)

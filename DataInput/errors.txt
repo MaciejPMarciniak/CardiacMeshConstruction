@@ -1,8 +1,0 @@
-ERROR: In /work/standalone-x64-build/VTK-source/Common/ExecutionModel/vtkAlgorithm.cxx, line 879
-vtkDataReader (0xa201100): FillOutputPortInformation is not implemented.
-
-
-ERROR: In /work/standalone-x64-build/VTK-source/Common/ExecutionModel/vtkDemandDrivenPipeline.cxx, line 671
-vtkCompositeDataPipeline (0xa200930): Algorithm vtkDataReader(0xa201100) did not create output for port 0 when asked by REQUEST_DATA_OBJECT and does not specify any DATA_TYPE_NAME.
-
-

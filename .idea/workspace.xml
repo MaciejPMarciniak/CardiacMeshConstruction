@@ -46,8 +46,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="240">
-                <caret line="16" column="105" selection-start-line="16" selection-start-column="105" selection-end-line="16" selection-end-column="105" />
+              <first_editor relative-caret-position="330">
+                <caret line="22" column="91" selection-start-line="22" selection-start-column="91" selection-end-line="22" selection-end-column="91" />
               </first_editor>
               <second_editor />
             </state>
@@ -149,50 +149,6 @@
             <path>
               <item name="CardiacMeshConstruction" type="b2602c69:ProjectViewProjectNode" />
               <item name="CardiacMeshConstruction" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CardiacMeshConstruction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CardiacMeshConstruction" type="462c0819:PsiDirectoryNode" />
-              <item name="DataInput" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CardiacMeshConstruction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CardiacMeshConstruction" type="462c0819:PsiDirectoryNode" />
-              <item name="DataInput" type="462c0819:PsiDirectoryNode" />
-              <item name="Deformetrica" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CardiacMeshConstruction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CardiacMeshConstruction" type="462c0819:PsiDirectoryNode" />
-              <item name="DataInput" type="462c0819:PsiDirectoryNode" />
-              <item name="Deformetrica" type="462c0819:PsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CardiacMeshConstruction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CardiacMeshConstruction" type="462c0819:PsiDirectoryNode" />
-              <item name="DataInput" type="462c0819:PsiDirectoryNode" />
-              <item name="Deformetrica" type="462c0819:PsiDirectoryNode" />
-              <item name="Template" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CardiacMeshConstruction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CardiacMeshConstruction" type="462c0819:PsiDirectoryNode" />
-              <item name="DataInput" type="462c0819:PsiDirectoryNode" />
-              <item name="Gmsh" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CardiacMeshConstruction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CardiacMeshConstruction" type="462c0819:PsiDirectoryNode" />
-              <item name="DataInput" type="462c0819:PsiDirectoryNode" />
-              <item name="Gmsh" type="462c0819:PsiDirectoryNode" />
-              <item name="tetra" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CardiacMeshConstruction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CardiacMeshConstruction" type="462c0819:PsiDirectoryNode" />
-              <item name="DataInput" type="462c0819:PsiDirectoryNode" />
-              <item name="PCA" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -572,8 +528,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="240">
-            <caret line="16" column="105" selection-start-line="16" selection-start-column="105" selection-end-line="16" selection-end-column="105" />
+          <first_editor relative-caret-position="330">
+            <caret line="22" column="91" selection-start-line="22" selection-start-column="91" selection-end-line="22" selection-end-column="91" />
           </first_editor>
           <second_editor />
         </state>

@@ -1,6 +1,6 @@
 import os
 import glob
-from shutil import copyfile, move
+from shutil import copyfile, move, rmtree
 import subprocess
 from Mesh import Model, merge_elements
 from pathlib import Path
@@ -23,27 +23,27 @@ class MeshTetrahedralization:
 
     def clean(self):
         [f.unlink() for f in Path(self.temp_path).glob("*") if f.is_file()]
+        rmtree(self.temp_path)
 
     def run_tetrahedralization(self):
         subprocess.call(os.path.join(self.main_path, './meshing.sh'))
         self.clean()
 
     def copy_surface_mesh_files(self):
-        self.clean()
         print(self.models_path)
+
         if not self.template:
             model_files = glob.glob(os.path.join(self.models_path, 'Shooting_{}_*'.format(self.k_model)))
         else:
             model_files = glob.glob(os.path.join(self.models_path, '*Template*'))
         print(model_files)
         model_files = [mf for mf in model_files if 'ControlPoints' not in mf and'Momenta' not in mf]
+
+        if not os.path.exists(self.temp_path):
+            os.mkdir(self.temp_path)
+
         for mf in model_files:
             copyfile(mf, os.path.join(self.temp_path, os.path.basename(mf)))
-
-    def copy_volumetric_file(self):
-        self.clean()
-        model_file = os.path.join(self.models_path, 'Full_Heart_{}.vtk'.format(self.k_model))
-        copyfile(model_file, os.path.join(self.temp_path, 'Full_Heart.vtk'))
 
     def modify_geo_files(self):
         geo_files = glob.glob(os.path.join(self.geo_path, '*.geo'))

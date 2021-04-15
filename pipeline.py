@@ -128,4 +128,4 @@ def pipeline(gmsh_exe_path,
 if __name__ == '__main__':
 
     absolute_path_to_gmsh_exe = r'/home/mat/gmsh-4.0.7-Linux64/bin/gmsh'
-    pipeline(absolute_path_to_gmsh_exe, run_only_tetra=True)
+    pipeline(absolute_path_to_gmsh_exe)

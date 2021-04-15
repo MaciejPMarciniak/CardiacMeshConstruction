@@ -3,3 +3,4 @@ venv/
 .idea/workspace.xml
 DataInput/Gmsh/tetra/*
 DataOutput/Deformetrica/*
+__pycache__/

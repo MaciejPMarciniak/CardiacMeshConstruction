@@ -24,6 +24,7 @@ class MeshTetrahedralization:
 
     def run_tetrahedralization(self):
         subprocess.call(os.path.join(self.main_path, './meshing.sh'))
+        self.clean()
 
     def copy_surface_mesh_files(self):
         self.clean()

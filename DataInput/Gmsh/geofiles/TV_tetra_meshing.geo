@@ -1,5 +1,5 @@
 // ---Input file
-Merge "/home/mat/Python/code/CardiacMeshConstruction/DataInput/Gmsh/temp/Shooting_1__GeodesicFlow__TV__tp_10__age_1.00.vtk";
+Merge "/home/mat/Python/code/CardiacMeshConstruction/DataInput/Gmsh/temp/Shooting_0__GeodesicFlow__TV__tp_10__age_1.00.vtk";
 
 // ---Change mesh parameters. The full list is available at https://gitlab.onelab.info/gmsh/gmshblob/master/Common/DefaultOptions.h ---
 Mesh.Algorithm3D=1;// (1) delaunay (tetgen); (4) frontal (netgen - does not take CharacteristicLengthFactor into consideration - only propagates info from the surface)

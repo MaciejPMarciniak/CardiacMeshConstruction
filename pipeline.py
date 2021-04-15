@@ -55,6 +55,24 @@ def perform_deformation(bash_file_path=os.path.join('DataInput', 'Deformetrica',
     subprocess.call(os.path.join(bash_file_path, bash_file))
 
 
+def write_meshing_file(gmsh_exe_path,
+                       tetra_dir_path=os.path.join(
+                           os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))),
+                           'DataInput', 'Gmsh', 'tetra')):
+
+    with open(os.path.join('DataInput', 'Gmsh', 'meshing.sh'), 'w') as f:
+        f.writelines(['#!/bin/bash\n',
+                      'cd "$(dirname "$0")"\n\n',
+                      'FILES="geofiles/*.geo"\n\n',
+                      'for f in $FILES\n',
+                      'do\n',
+                      '  d=${f##*/}\n',
+                      '  d=${d%_*_*}\n',
+                      '  echo "File: $f, chamber: $d"\n\n',
+                      '  {} "$f" -3 -o {}/"$d"_tetra.vtk\n\n'.format(gmsh_exe_path, tetra_dir_path),
+                      'done'])
+
+
 def merged_shapes_generation(id_from=0,
                              id_to=20,
                              models_path=os.path.join('DataOutput', 'Deformetrica', 'MorphedModels'),
@@ -83,7 +101,9 @@ def merged_shapes_generation(id_from=0,
             exit('Provide proper model generation type: "tetra" or "surface"')
 
 
-def pipeline(run_only_tetra=False):
+def pipeline(gmsh_exe_path,
+             tetrahedralized_mesh_output_path='/media/mat/BEDC-845B/FullPipeline',
+             run_only_tetra=False):
 
     if not run_only_tetra:
         print('PCA on 19 cases')
@@ -95,13 +115,17 @@ def pipeline(run_only_tetra=False):
         print('Prepare files necessary for deformation')
         prep_predefined_cohort_for_reconstruction()
 
+        print('Generate tetrahedralization file')
+        write_meshing_file(gmsh_exe_path)
+
         print('Run deformetrica')
         perform_deformation()
 
     print('Perform tetrahedralization')
-    merged_shapes_generation(0, 2, output_path='/media/mat/BEDC-845B/FullPipeline')
+    merged_shapes_generation(0, 1, output_path=tetrahedralized_mesh_output_path)
 
 
 if __name__ == '__main__':
 
-    pipeline(1)
+    absolute_path_to_gmsh_exe = r'/home/mat/gmsh-4.0.7-Linux64/bin/gmsh'
+    pipeline(absolute_path_to_gmsh_exe, run_only_tetra=True)

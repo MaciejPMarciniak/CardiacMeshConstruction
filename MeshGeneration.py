@@ -14,6 +14,8 @@ class MeshTetrahedralization:
         self.main_path = main_path
         self.models_path = models_path
         self.temp_path = os.path.join(main_path, temp_dir)
+        if not os.path.exists(self.temp_path):
+            os.mkdir(self.temp_path)
         self.geo_path = os.path.join(main_path, geo_dir)
         self.output_path = output_path
         self.k_model = k_model

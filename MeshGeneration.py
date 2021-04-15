@@ -62,6 +62,7 @@ class MeshTetrahedralization:
     def tag_and_merge_heart_elements(self):
         models = []
         tetra_files = [os.path.join(self.main_path, 'tetra', el + '_tetra.vtk') for el in Model.list_of_elements]
+
         for element in tetra_files:
             print(os.path.basename(element))
             element_name = os.path.basename(element).split('_')[0]
@@ -74,10 +75,12 @@ class MeshTetrahedralization:
             models.append(model)
 
         final_model = models.pop(0)
+
         for model_to_merge in models:
             final_model.mesh = merge_elements(final_model.mesh, model_to_merge.mesh)
         final_model.tetrahedralize()
         final_model.write_vtk(postscript='merged', type_='UG')
+        
         if not self.template:
             os.rename(os.path.join(self.main_path, 'tetra', 'LV_tetramerged.vtk'),
                       os.path.join(self.main_path, 'tetra', 'Full_Heart_{}.vtk'.format(self.k_model)))

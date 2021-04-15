@@ -2,31 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0081076d-3db9-4a6f-9ed2-23ba3e3b483c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/DataInput/errors.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__AB__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__AO__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__APP__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__AV__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__IVCB__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__IVC__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__LA__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__LIPVB__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__LIPV__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__LSPVB__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__LSPV__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__LV__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__MV__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__PV__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__RA__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__RIPVB__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__RIPV__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__RSPVB__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__RSPV__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__RV__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__SVCB__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__SVC__tp_10__age_1.00.vtk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataInput/Gmsh/current_model/Shooting_18__GeodesicFlow__TV__tp_10__age_1.00.vtk" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pipeline.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="104" column="82" selection-start-line="104" selection-start-column="82" selection-end-line="104" selection-end-column="82" />
+            <state relative-caret-position="110">
+              <caret line="84" column="29" lean-forward="true" selection-start-line="84" selection-start-column="29" selection-end-line="84" selection-end-column="29" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -48,11 +25,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+            <state relative-caret-position="30">
+              <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -118,8 +95,8 @@
         <option value="$PROJECT_DIR$/MeshGeneration.py" />
         <option value="$PROJECT_DIR$/pipeline.py" />
         <option value="$PROJECT_DIR$/DataInput/Gmsh/tetra/AO_tetra.vtk" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/DataInput/Gmsh/tetra/AB_tetra.vtk" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -153,13 +130,6 @@
               <item name="CardiacMeshConstruction" type="462c0819:PsiDirectoryNode" />
               <item name="DataInput" type="462c0819:PsiDirectoryNode" />
               <item name="Gmsh" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CardiacMeshConstruction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CardiacMeshConstruction" type="462c0819:PsiDirectoryNode" />
-              <item name="DataInput" type="462c0819:PsiDirectoryNode" />
-              <item name="Gmsh" type="462c0819:PsiDirectoryNode" />
-              <item name="geofiles" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -529,13 +499,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DataInput/Gmsh/tetra/AB_tetra.vtk">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -545,11 +508,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pipeline.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="104" column="82" selection-start-line="104" selection-start-column="82" selection-end-line="104" selection-end-column="82" />
+        <state relative-caret-position="110">
+          <caret line="84" column="29" lean-forward="true" selection-start-line="84" selection-start-column="29" selection-end-line="84" selection-end-column="29" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
         </state>
       </provider>
     </entry>

@@ -1,7 +1,5 @@
 venv/
 .idea/
 .idea/workspace.xml
-DataInput/Gmsh/*
 DataInput/Gmsh/tetra/*
-DataInput/Gmsh/tetra/
 DataOutput/Deformetrica/*

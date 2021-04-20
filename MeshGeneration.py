@@ -80,7 +80,7 @@ class MeshTetrahedralization:
             final_model.mesh = merge_elements(final_model.mesh, model_to_merge.mesh)
         final_model.tetrahedralize()
         final_model.write_vtk(postscript='merged', type_='UG')
-        
+
         if not self.template:
             os.rename(os.path.join(self.main_path, 'tetra', 'LV_tetramerged.vtk'),
                       os.path.join(self.main_path, 'tetra', 'Full_Heart_{}.vtk'.format(self.k_model)))

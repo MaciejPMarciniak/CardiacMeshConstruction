@@ -2,7 +2,7 @@ import os
 import glob
 from shutil import copyfile, move, rmtree
 import subprocess
-from Mesh import Model, merge_elements
+from cardiac_mesh_construction.Mesh import Model, merge_elements
 from pathlib import Path
 
 
@@ -138,35 +138,6 @@ class MeshTetrahedralization:
 
 
 # --- END MeshTetrahedralization----------------------------------------------------------------------------------------
-
-def merged_shapes_generation(id_from=0,
-                             id_to=20,
-                             models_path='/home/mat/Deformetrica/deterministic_atlas_ct/output_shooting/final_steps_3sd',
-                             output_path='/media/mat/BEDC-845B/Surface_3_sd',
-                             merge_type='tetra'):
-
-    assert id_from < id_to, 'Insert proper range of IDs to create meshes from'
-    assert os.path.exists(models_path), 'Provide proper path to models'
-    if not os.path.exists(output_path):
-        os.mkdir(output_path)
-
-    for j in range(id_from, id_to):
-
-        sup = MeshTetrahedralization(main_path='/home/mat/Deformetrica/deterministic_atlas_ct/gmsh',
-                                     models_path=models_path,
-                                     geo_dir='/home/mat/Deformetrica/deterministic_atlas_ct/gmsh/geofiles',
-                                     temp_dir='/home/mat/Deformetrica/deterministic_atlas_ct/output_shooting/'
-                                               'final_steps_2sd/temp',
-                                     output_path=output_path,
-                                     k_model=j,
-                                     template=False)
-        if merge_type == 'surface':
-            sup.pipeline_aggr_surf_mesh()
-        elif merge_type == 'tetra':
-            sup.pipeline_surf_2_tetra_mesh()
-        else:
-            exit('Provide proper model generation type: "tetra" or "surface"')
-
 
 def random_dataset_generation(cohort_from,
                               cohort_to,

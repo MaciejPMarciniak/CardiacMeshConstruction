@@ -5,7 +5,7 @@ from sklearn.pipeline import Pipeline
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
-from IO import DataHandler
+from cardiac_mesh_construction.IO import DataHandler
 
 
 class PcaWithScaling(DataHandler):

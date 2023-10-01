@@ -3,10 +3,10 @@ import pandas as pd
 import numpy as np
 import subprocess
 
-from decomposition_pca import PcaWithScaling
-from read_momenta import HandleMomenta
-from create_model_and_dataset_files import ModelShooting
-from MeshGeneration import MeshTetrahedralization
+from cardiac_mesh_construction.decomposition_pca import PcaWithScaling
+from cardiac_mesh_construction.read_momenta import HandleMomenta
+from cardiac_mesh_construction.create_model_and_dataset_files import ModelShooting
+from cardiac_mesh_construction.MeshGeneration import MeshTetrahedralization
 
 
 def pca_get_predefined_combinations(path_to_data=os.path.join('DataInput', 'PCA'),
@@ -122,7 +122,7 @@ def pipeline(gmsh_exe_path,
         perform_deformation()
 
     print('Perform tetrahedralization')
-    merged_shapes_generation(0, 1, output_path=tetrahedralized_mesh_output_path)
+    merged_shapes_generation(0, 15, output_path=tetrahedralized_mesh_output_path)
 
 
 if __name__ == '__main__':

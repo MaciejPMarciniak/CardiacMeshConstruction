@@ -4,6 +4,7 @@ import numpy as np
 import os
 import glob
 from PIL import Image
+
 # from MeshAlignment import calculate_rotation, calculate_plane_normal
 # from MeshSlices import create_plax_slices
 
@@ -40,33 +41,54 @@ from PIL import Image
 
 
 class Model:
-
-    list_of_elements = ['LV', 'RV', 'LA', 'RA', 'AO', 'PA', 'MV', 'TV', 'AV', 'PV',
-                        'APP', 'LSPV', 'LIPV', 'RIPV', 'RSPV', 'SVC', 'IVC',
-                        'AB', 'RIPVB', 'LIPVB', 'LSPVB', 'RSPVB', 'SVCB', 'IVCB']
+    list_of_elements = [
+        "LV",
+        "RV",
+        "LA",
+        "RA",
+        "AO",
+        "PA",
+        "MV",
+        "TV",
+        "AV",
+        "PV",
+        "APP",
+        "LSPV",
+        "LIPV",
+        "RIPV",
+        "RSPV",
+        "SVC",
+        "IVC",
+        "AB",
+        "RIPVB",
+        "LIPVB",
+        "LSPVB",
+        "RSPVB",
+        "SVCB",
+        "IVCB",
+    ]
 
     # TODO: Add the dictionary with labels, to use in alignment
 
-    def __init__(self, filename='h_case06.vtk', to_polydata=False):
-
-        self.filename, self.input_type = filename.split('.')
+    def __init__(self, filename="h_case06.vtk", to_polydata=False):
+        self.filename, self.input_type = filename.split(".")
         print(self.filename)
 
         # Initialize log of mesh manipulations
         w = vtk.vtkFileOutputWindow()
-        w.SetFileName(self.filename.split('/')[0] + '/errors.txt')
+        w.SetFileName(self.filename.split("/")[0] + "/errors.txt")
         vtk.vtkOutputWindow.SetInstance(w)
 
-        print('Reading the data from {}.{}...'.format(self.filename, self.input_type))
-        if self.input_type == 'obj':
+        print("Reading the data from {}.{}...".format(self.filename, self.input_type))
+        if self.input_type == "obj":
             self.mesh, self.scalar_range = self.read_obj()
-        elif self.input_type == 'vtp':
+        elif self.input_type == "vtp":
             self.mesh, self.scalar_range = self.read_vtp()
         else:
             self.mesh, self.scalar_range = self.read_vtk(to_polydata)
 
         self.center_of_model = self.get_center(self.mesh)
-        print('Model centered at: {}'.format(self.center_of_model))
+        print("Model centered at: {}".format(self.center_of_model))
         self.label = 0
 
     @staticmethod
@@ -82,7 +104,7 @@ class Model:
         try:
             mapper.SetInputData(self.mesh.GetOutput())
         except TypeError:
-            print('Can\'t get output directly')
+            print("Can't get output directly")
             mapper = vtk.vtkPolyDataMapper()
             mapper.SetInputConnection(self.mesh.GetOutputPort())
         mapper.SetScalarRange(self.scalar_range)
@@ -120,12 +142,12 @@ class Model:
     # -----3D rigid transformations---------------------------------------------------------------------------
 
     def rotate(self, alpha=0, beta=0, gamma=0, rotation_matrix=None):
-        print('rotating')
+        print("rotating")
         rotate = vtk.vtkTransform()
         if rotation_matrix is not None:
             translation_matrix = np.eye(4)
             translation_matrix[:-1, :-1] = rotation_matrix
-            print('Translation matrix (rotation):\n', translation_matrix)
+            print("Translation matrix (rotation):\n", translation_matrix)
             rotate.SetMatrix(translation_matrix.ravel())
         else:
             rotate.Identity()
@@ -140,7 +162,7 @@ class Model:
         self.center_of_model = self.get_center(self.mesh)
 
     def scale(self, factor=(0.001, 0.001, 0.001)):
-        print('scaling')
+        print("scaling")
         scale = vtk.vtkTransform()
         scale.Scale(factor[0], factor[1], factor[2])
         transformer = vtk.vtkTransformFilter()
@@ -152,12 +174,12 @@ class Model:
         print(self.center_of_model)
 
     def translate(self, rotation_matrix, translation_vector):
-        print('translating')
+        print("translating")
         translate = vtk.vtkTransform()
         translation_matrix = np.eye(4)
         translation_matrix[:-1, :-1] = rotation_matrix
         translation_matrix[:-1, -1] = translation_vector
-        print('Translation matrix:\n', translation_matrix)
+        print("Translation matrix:\n", translation_matrix)
         translate.SetMatrix(translation_matrix.ravel())
         transformer = vtk.vtkTransformFilter()
         transformer.SetInputConnection(self.mesh.GetOutputPort())
@@ -169,14 +191,16 @@ class Model:
     def translate_to_center(self, label=None):
         # vtkTransform.SetMatrix - enables for applying 4x4 transformation matrix to the meshes
         # if label is provided, translates to the center of the element with that label
-        print('translating o center')
+        print("translating o center")
         translate = vtk.vtkTransform()
         if label is not None:
             central_element = self.threshold(label, label)
             center_of_element = self.get_center(central_element)
             translate.Translate(-center_of_element[0], -center_of_element[1], -center_of_element[2])
         else:
-            translate.Translate(-self.center_of_model[0], -self.center_of_model[1], -self.center_of_model[2])
+            translate.Translate(
+                -self.center_of_model[0], -self.center_of_model[1], -self.center_of_model[2]
+            )
         translate.Update()
         transformer = vtk.vtkTransformFilter()
         transformer.SetInputConnection(self.mesh.GetOutputPort())
@@ -188,9 +212,9 @@ class Model:
 
     # -----Mesh manipulation----------------------------------------------------------------------------------
     def apply_modes(self, modes_with_scales):
-        print('applying modes')
+        print("applying modes")
         for mode, scale in modes_with_scales.items():
-            print('Applying ' + mode + ' multiplied by ' + str(scale))
+            print("Applying " + mode + " multiplied by " + str(scale))
             self.mesh.GetOutput().GetPointData().SetActiveVectors(mode)
             warp_vector = vtk.vtkWarpVector()
             warp_vector.SetInputConnection(self.mesh.GetOutputPort())
@@ -199,34 +223,36 @@ class Model:
             self.mesh = warp_vector
 
     def build_tag(self, label):
-        print('building tag')
+        print("building tag")
         self.label = label
         tag = vtk.vtkIdFilter()
         tag.CellIdsOn()
         tag.PointIdsOff()
         tag.SetInputConnection(self.mesh.GetOutputPort())
-        tag.SetIdsArrayName('elemTag')
+        tag.SetIdsArrayName("elemTag")
         tag.Update()
         self.mesh = tag
 
     @staticmethod
     def calculate_bounding_box_diagonal(bounds):
-        return np.sqrt(np.power(bounds[0] - bounds[1], 2) +
-                       np.power(bounds[2] - bounds[3], 2) +
-                       np.power(bounds[4] - bounds[5], 2))
+        return np.sqrt(
+            np.power(bounds[0] - bounds[1], 2)
+            + np.power(bounds[2] - bounds[3], 2)
+            + np.power(bounds[4] - bounds[5], 2)
+        )
 
     def calculate_maximum_distance(self, bounds, target_offset):
         d = self.calculate_bounding_box_diagonal(bounds)
         return target_offset / d
 
     def change_tag_label(self):
-        print('changing tag label')
+        print("changing tag label")
         size = self.mesh.GetOutput().GetAttributes(1).GetArray(0).GetSize()
         for id in range(size):
             self.mesh.GetOutput().GetAttributes(1).GetArray(0).SetTuple(id, (float(self.label),))
 
     def clean_polydata(self, tolerance=0.005, remove_lines=False):
-        print('cleaning polydata')
+        print("cleaning polydata")
         cleaner = vtk.vtkCleanPolyData()
         cleaner.SetInputConnection(self.mesh.GetOutputPort())
         cleaner.SetTolerance(tolerance)
@@ -239,7 +265,7 @@ class Model:
             self.mesh.GetOutput().SetLines(vtk.vtkCellArray())
 
     def contouring(self):
-        print('contouring')
+        print("contouring")
         contour = vtk.vtkContourFilter()
         contour.SetInputConnection(self.mesh.GetOutputPort())
         contour.GenerateTrianglesOn()
@@ -248,7 +274,7 @@ class Model:
         self.mesh = contour
 
     def decimation(self, reduction=50):
-        print('decimating')
+        print("decimating")
         decimation = vtk.vtkQuadricDecimation()
         decimation.SetInputConnection(self.mesh.GetOutputPort())
         decimation.VolumePreservationOn()
@@ -257,21 +283,21 @@ class Model:
         self.mesh = decimation
 
     def delaunay2d(self):
-        print('triangulating 2D')
+        print("triangulating 2D")
         delaunay2d = vtk.vtkDelaunay2D()
         delaunay2d.SetInputConnection(self.mesh.GetOutputPort())
         delaunay2d.Update()
         self.mesh = delaunay2d
 
     def delaunay3d(self):
-        print('triangulating 3D')
+        print("triangulating 3D")
         delaunay3d = vtk.vtkDelaunay3D()
         delaunay3d.SetInputConnection(self.mesh.GetOutputPort())
         delaunay3d.Update()
         self.mesh = delaunay3d
 
     def extract_surface(self):
-        print('extracting surface')
+        print("extracting surface")
         # Get surface of the mesh
         surface_filter = vtk.vtkDataSetSurfaceFilter()
         surface_filter.SetInputData(self.mesh.GetOutput())
@@ -279,7 +305,7 @@ class Model:
         self.mesh = surface_filter
 
     def fill_holes(self, hole_size=10.0):
-        print('filling holes')
+        print("filling holes")
         filling_filter = vtk.vtkFillHolesFilter()
         filling_filter.SetInputConnection(self.mesh.GetOutputPort())
         filling_filter.SetHoleSize(hole_size)
@@ -287,7 +313,7 @@ class Model:
         self.mesh = filling_filter
 
     def get_external_surface(self):
-        print('getting external surface')
+        print("getting external surface")
         _center = np.zeros(3)
         _bounds = np.zeros(6)
         _ray_start = np.zeros(3)
@@ -306,7 +332,9 @@ class Model:
         cell_locator = vtk.vtkCellLocator()
         cell_locator.SetDataSet(self.mesh.GetOutput())
         cell_locator.BuildLocator()
-        cell_locator.IntersectWithLine(_ray_start, _center, 0.0001, t, xyz, pcoords, sub_id, cell_id)
+        cell_locator.IntersectWithLine(
+            _ray_start, _center, 0.0001, t, xyz, pcoords, sub_id, cell_id
+        )
 
         connectivity_filter = vtk.vtkConnectivityFilter()
         connectivity_filter.SetInputConnection(self.mesh.GetOutputPort())
@@ -317,7 +345,7 @@ class Model:
         self.mesh = connectivity_filter  # UnstructuredGrid
 
     def implicit_modeller(self, distance):
-        print('implicit modelling')
+        print("implicit modelling")
         # Create implicit model with vtkImplicitModeller at the 'distance' (in mesh's units) from the provided geometry.
         bounds = np.array(self.mesh.GetOutput().GetPoints().GetBounds())
         max_dist = self.calculate_maximum_distance(bounds, distance)
@@ -333,14 +361,14 @@ class Model:
         self.mesh = imp
 
     def measure_average_edge_length(self):
-        print('Average edge length')
+        print("Average edge length")
         size = vtk.vtkCellSizeFilter()
         size.SetInputConnection(self.mesh.GetOutputPort())
         size.Update()
         print(size)
 
     def normals(self):
-        print('getting normals')
+        print("getting normals")
         normals = vtk.vtkPolyDataNormals()
         normals.SetInputConnection(self.mesh.GetOutputPort())
         normals.FlipNormalsOn()
@@ -348,33 +376,37 @@ class Model:
         self.mesh = normals
 
     def pass_array(self):
-        print('passing arrays')
+        print("passing arrays")
         passer = vtk.vtkPassArrays()
         passer.SetInputConnection(self.mesh.GetOutputPort())
-        passer.AddCellDataArray('elemTag')
+        passer.AddCellDataArray("elemTag")
         passer.Update()
         self.mesh = passer
 
-    def resample_to_image(self, label_name='elemTag'):
-        print('resampling to image')
+    def resample_to_image(self, label_name="elemTag"):
+        print("resampling to image")
         resampler = vtk.vtkResampleToImage()
         resampler.SetInputConnection(self.mesh.GetOutputPort())
         resampler.UseInputBoundsOff()
         bounds = np.array(self.mesh.GetOutput().GetBounds())
         bounds[:4] = bounds[:4] + 0.1 * bounds[:4]
-        assert np.sum(bounds[4:] < 0.001), 'The provided slice must be 2D and must be projected on the XY plane'
+        assert np.sum(
+            bounds[4:] < 0.001
+        ), "The provided slice must be 2D and must be projected on the XY plane"
 
         resampler.SetSamplingBounds(*bounds[:5], 1.01)
         resampler.SetSamplingDimensions(1024, 1024, 1)
         resampler.Update()
 
         img_as_array = vtk_to_numpy(resampler.GetOutput().GetPointData().GetArray(label_name))
-        img_as_array = img_as_array.reshape((int(np.sqrt(img_as_array.shape[0])), int(np.sqrt(img_as_array.shape[0]))))
+        img_as_array = img_as_array.reshape(
+            (int(np.sqrt(img_as_array.shape[0])), int(np.sqrt(img_as_array.shape[0])))
+        )
 
         return img_as_array
 
     def slice_extraction(self, origin, normal):
-        print('extracting slices')
+        print("extracting slices")
         # create a plane to cut (xz normal=(1,0,0);XY =(0,0,1),YZ =(0,1,0)
         plane = vtk.vtkPlane()
         plane.SetOrigin(*origin)
@@ -389,7 +421,7 @@ class Model:
         self.mesh = cutter
 
     def smooth_laplacian(self, number_of_iterations=50):
-        print('laplacian smoothing')
+        print("laplacian smoothing")
         smooth = vtk.vtkSmoothPolyDataFilter()
         smooth.SetInputConnection(self.mesh.GetOutputPort())
         smooth.SetNumberOfIterations(number_of_iterations)
@@ -399,7 +431,7 @@ class Model:
         self.mesh = smooth
 
     def smooth_window(self, number_of_iterations=30, pass_band=0.05):
-        print('window smoothing')
+        print("window smoothing")
         smooth = vtk.vtkWindowedSincPolyDataFilter()
         smooth.SetInputConnection(self.mesh.GetOutputPort())
         smooth.SetNumberOfIterations(number_of_iterations)
@@ -412,7 +444,7 @@ class Model:
         self.mesh = smooth
 
     def subdivision(self, number_of_subdivisions=3):
-        print('subdividing')
+        print("subdividing")
         self.normals()
         subdivision = vtk.vtkLinearSubdivisionFilter()
         subdivision.SetNumberOfSubdivisions(number_of_subdivisions)
@@ -422,7 +454,7 @@ class Model:
         self.visualize_mesh(True)
 
     def tetrahedralize(self, leave_tetra_only=True):
-        print('creating tetrahedrons')
+        print("creating tetrahedrons")
         tetra = vtk.vtkDataSetTriangleFilter()
         if leave_tetra_only:
             tetra.TetrahedraOnlyOn()
@@ -431,7 +463,7 @@ class Model:
         self.mesh = tetra
 
     def threshold(self, low=0, high=100):
-        print('thresholding')
+        print("thresholding")
         threshold = vtk.vtkThreshold()
         threshold.SetInputConnection(self.mesh.GetOutputPort())
         threshold.ThresholdBetween(low, high)
@@ -440,7 +472,7 @@ class Model:
         return threshold
 
     def ug_geometry(self):
-        print('setting unstructured grid geometry')
+        print("setting unstructured grid geometry")
         geometry = vtk.vtkUnstructuredGridGeometryFilter()
         print(geometry.GetDuplicateGhostCellClipping())
         geometry.SetInputConnection(self.mesh.GetOutputPort())
@@ -448,7 +480,7 @@ class Model:
         self.mesh = geometry
 
     def unstructured_grid_to_poly_data(self):
-        print('transforming UG into PD')
+        print("transforming UG into PD")
         surface = vtk.vtkDataSetSurfaceFilter()
         surface.SetInputConnection(self.mesh.GetOutputPort())
         surface.Update()
@@ -462,12 +494,12 @@ class Model:
 
     def print_mesh_information(self):
         _mesh = self.mesh.GetOutput()
-        print('Number of vertices: {}'.format(_mesh.GetNumberOfVerts()))
-        print('Number of lines: {}'.format(_mesh.GetNumberOfLines()))
-        print('Number of strips: {}'.format(_mesh.GetNumberOfStrips()))
-        print('Number of polys: {}'.format(_mesh.GetNumberOfPolys()))
-        print('Number of cells: {}'.format(_mesh.GetNumberOfCells()))
-        print('Number of points: {}'.format(_mesh.GetNumberOfPoints()))
+        print("Number of vertices: {}".format(_mesh.GetNumberOfVerts()))
+        print("Number of lines: {}".format(_mesh.GetNumberOfLines()))
+        print("Number of strips: {}".format(_mesh.GetNumberOfStrips()))
+        print("Number of polys: {}".format(_mesh.GetNumberOfPolys()))
+        print("Number of cells: {}".format(_mesh.GetNumberOfCells()))
+        print("Number of points: {}".format(_mesh.GetNumberOfPoints()))
 
     # -----InputOutput----------------------------------------------------------------------------------------
 
@@ -475,59 +507,60 @@ class Model:
 
     def read_vtk(self, to_polydata=False):
         # Read the source file.
-        assert os.path.isfile('.' .join([self.filename, self.input_type])), \
-            'File {} does not exist!'.format('.' .join([self.filename, self.input_type]))
+        assert os.path.isfile(
+            ".".join([self.filename, self.input_type])
+        ), "File {} does not exist!".format(".".join([self.filename, self.input_type]))
         reader = vtk.vtkDataReader()
-        reader.SetFileName('.' .join([self.filename, self.input_type]))
+        reader.SetFileName(".".join([self.filename, self.input_type]))
         reader.Update()
-        print('Case ID : {}, input type: {}'.format(self.filename, self.input_type))
+        print("Case ID : {}, input type: {}".format(self.filename, self.input_type))
         if reader.IsFileUnstructuredGrid():
-            print('Reading Unstructured Grid...')
+            print("Reading Unstructured Grid...")
             reader = vtk.vtkUnstructuredGridReader()
         elif reader.IsFilePolyData():
-            print('Reading Polygonal Mesh...')
+            print("Reading Polygonal Mesh...")
             reader = vtk.vtkPolyDataReader()
         elif reader.IsFileStructuredGrid():
-            print('Reading Structured Grid...')
+            print("Reading Structured Grid...")
             reader = vtk.vtkStructuredGridReader()
         elif reader.IsFileStructuredPoints():
-            print('Reading Structured Points...')
+            print("Reading Structured Points...")
             reader = vtk.vtkStructuredPointsReader()
         elif reader.IsFileRectilinearGrid():
-            print('Reading Rectilinear Grid...')
+            print("Reading Rectilinear Grid...")
             reader = vtk.vtkRectilinearGridReader()
         else:
-            print('Data format unknown...')
-        reader.SetFileName(self.filename + '.' + self.input_type)
+            print("Data format unknown...")
+        reader.SetFileName(self.filename + "." + self.input_type)
         reader.Update()  # Needed because of GetScalarRange
         scalar_range = reader.GetOutput().GetScalarRange()
         if to_polydata and not reader.IsFilePolyData():
-            print('Transform to Polygonal Mesh')
+            print("Transform to Polygonal Mesh")
             reader = self.unstructured_grid_to_poly_data(reader)
-        print('Scalar range: \n{}'.format(scalar_range))
+        print("Scalar range: \n{}".format(scalar_range))
         return reader, scalar_range
 
     def read_vtp(self):
         reader = vtk.vtkXMLPolyDataReader()
-        reader.SetFileName('.' .join([self.filename, self.input_type]))
+        reader.SetFileName(".".join([self.filename, self.input_type]))
         reader.Update()
         scalar_range = reader.GetOutput().GetScalarRange()
         return reader, scalar_range
 
     def read_obj(self):
         reader = vtk.vtkOBJReader()
-        reader.SetFileName('.' .join([self.filename, self.input_type]))
+        reader.SetFileName(".".join([self.filename, self.input_type]))
         reader.Update()
         scalar_range = reader.GetOutput().GetScalarRange()
         return reader, scalar_range
+
     # ---END-Readers--------------------------------------------------------------------------------------------
 
     # -----Writers----------------------------------------------------------------------------------------------
     def write_mha(self):
-
-        output_filename = self.filename + '.mha'
+        output_filename = self.filename + ".mha"
         # output_filename_raw = self.filename + '.raw'
-        print('writing mha')
+        print("writing mha")
 
         mha_writer = vtk.vtkMetaImageWriter()
         mha_writer.SetInputConnection(self.mesh.GetOutputPort())
@@ -536,10 +569,10 @@ class Model:
         mha_writer.Write()
 
     def write_stl(self):
-        output_filename = self.filename + '.stl'
+        output_filename = self.filename + ".stl"
 
         # Get surface of the mesh
-        print('Extracting surface to save as .STL file...')
+        print("Extracting surface to save as .STL file...")
         # self.extract_surface()
 
         # Write file to .stl format
@@ -547,48 +580,47 @@ class Model:
         stl_writer.SetFileName(output_filename)
         stl_writer.SetInputConnection(self.mesh.GetOutputPort())
         stl_writer.Write()
-        print('{} written succesfully'.format(output_filename))
+        print("{} written succesfully".format(output_filename))
 
-    def write_obj(self, postscript=''):
+    def write_obj(self, postscript=""):
         output_filename = self.filename
         render_window = self.visualize_mesh(False)
 
-        print('Saving PolyData in the OBJ file...')
+        print("Saving PolyData in the OBJ file...")
         obj_writer = vtk.vtkOBJExporter()
         obj_writer.SetRenderWindow(render_window)
         obj_writer.SetFilePrefix(output_filename + postscript)
         obj_writer.Write()
-        print('{} written succesfully'.format(output_filename + postscript + '.obj'))
+        print("{} written succesfully".format(output_filename + postscript + ".obj"))
 
-    def write_png(self, postscript=''):
-
-        print('Saving slice in PNG file...')
-        output_filename = self.filename + postscript + '.png'
+    def write_png(self, postscript=""):
+        print("Saving slice in PNG file...")
+        output_filename = self.filename + postscript + ".png"
         image = Image.fromarray(self.resample_to_image())
-        image = image.convert('L')
-        image.save(output_filename, 'PNG')
-        print('{} written succesfully'.format(output_filename))
+        image = image.convert("L")
+        image.save(output_filename, "PNG")
+        print("{} written succesfully".format(output_filename))
 
-    def write_vtk(self, postscript='_new', type_='PolyData'):
-        output_filename = self.filename + postscript + '.vtk'
+    def write_vtk(self, postscript="_new", type_="PolyData"):
+        output_filename = self.filename + postscript + ".vtk"
         writer = None
-        if type_ == 'PolyData':
-            print('Saving PolyData...')
+        if type_ == "PolyData":
+            print("Saving PolyData...")
             self.extract_surface()
             writer = vtk.vtkPolyDataWriter()
-        elif type_ == 'UG':
-            print('Saving Unstructured Grid...')
+        elif type_ == "UG":
+            print("Saving Unstructured Grid...")
             writer = vtk.vtkUnstructuredGridWriter()
         else:
-            exit("Select \'Polydata\' or \'UG\' as type of the saved mesh")
+            exit("Select 'Polydata' or 'UG' as type of the saved mesh")
         writer.SetInputConnection(self.mesh.GetOutputPort())
         writer.SetFileName(output_filename)
         writer.Update()
         writer.Write()
-        print('{} written succesfully'.format(output_filename))
+        print("{} written succesfully".format(output_filename))
 
-    def write_vtk_points(self, postscript='_points'):
-        output_filename = self.filename + postscript + '.vtk'
+    def write_vtk_points(self, postscript="_points"):
+        output_filename = self.filename + postscript + ".vtk"
 
         point_cloud = vtk.vtkPolyData()
         point_cloud.SetPoints(self.mesh.GetOutput().GetPoints())
@@ -597,6 +629,7 @@ class Model:
         writer.SetFileName(output_filename)
         writer.Update()
         writer.Write()
+
     # ---END-Writers------------------------------------------------------------------------------------------
 
 
@@ -605,7 +638,6 @@ def split_chambers(_model, return_as_surface=False, return_elements=True):
 
     surfaces = []
     for i in range(1, int(_model.scalar_range[1]) + 1):
-
         x = _model.threshold(i, i)
         surfaces.append(x)
 
@@ -616,7 +648,7 @@ def split_chambers(_model, return_as_surface=False, return_elements=True):
         if return_elements:
             _model.mesh = surf
             _model.extract_surface()
-            _model.write_vtk(postscript='_'+elem)
+            _model.write_vtk(postscript="_" + elem)
 
         full_model_appended.AddInputConnection(surf.GetOutputPort())
 
@@ -625,18 +657,18 @@ def split_chambers(_model, return_as_surface=False, return_elements=True):
     if return_as_surface:
         # _model.translate_to_center()
         _model.extract_surface()
-        _model.write_vtk(postscript='surf')
+        _model.write_vtk(postscript="surf")
     else:
-        _model.write_vtk(postscript='tetra')
+        _model.write_vtk(postscript="tetra")
     return _model
 
 
-def change_downloaded_files_names(path='h_case_', key='surfmesh', ext='vtk'):
-    files = glob.glob(os.path.join(path, '*'+key+'*'+ext))
+def change_downloaded_files_names(path="h_case_", key="surfmesh", ext="vtk"):
+    files = glob.glob(os.path.join(path, "*" + key + "*" + ext))
     for i, old_file in enumerate(files):
-        new_file = old_file.split('.')[0]
+        new_file = old_file.split(".")[0]
         print(new_file)
-        os.rename(old_file, new_file+'.'+ext)
+        os.rename(old_file, new_file + "." + ext)
     print(files)
 
 
@@ -648,14 +680,14 @@ def change_elem_tag(_mesh, label):
 
 
 def assign_tags(_mesh, label_and_range_tuple=({},)):
-    _mesh.GetOutput().GetAttributes(1).GetArray(0).SetName('elemTag')
-    _mesh.GetOutput().GetAttributes(0).RemoveArray('elemTag')  # remove point attribute
+    _mesh.GetOutput().GetAttributes(1).GetArray(0).SetName("elemTag")
+    _mesh.GetOutput().GetAttributes(0).RemoveArray("elemTag")  # remove point attribute
     for label_and_range in label_and_range_tuple:
-        label = label_and_range['label']
-        range_of_points = label_and_range['range']
-        print('Assigning label {} to {} points'.format(label, range_of_points[1]))
+        label = label_and_range["label"]
+        range_of_points = label_and_range["range"]
+        print("Assigning label {} to {} points".format(label, range_of_points[1]))
         for id in range(*range_of_points):
-            _mesh.GetOutput().GetAttributes(1).GetArray('elemTag').SetTuple(id, (float(label),))
+            _mesh.GetOutput().GetAttributes(1).GetArray("elemTag").SetTuple(id, (float(label),))
     return _mesh
 
 
@@ -676,25 +708,36 @@ def merge_elements(elem1, elem2):
 
 # TODO: Make all of the functions and parameters below into a class!!!
 # -----ApplyToCohort------------------------------------------------------------------------------------------
-def apply_single_transformation_to_all(path, input_base, version, start=0, end=0, ext='_new', ext_type='PolyData',
-                                       function_=None, args='()'):
+def apply_single_transformation_to_all(
+    path,
+    input_base,
+    version,
+    start=0,
+    end=0,
+    ext="_new",
+    ext_type="PolyData",
+    function_=None,
+    args="()",
+):
     if function_ is not None:
         if start == end:
             cases = [os.path.join(path, f) for f in os.listdir(path) if f[-4:] == ".vtk"]
         else:
-            cases = [path + '/' + input_base + str(case_no).zfill(2) + version + '.vtk' for case_no in
-                     range(start, end + 1)]
-        print('Cases: {}'.format(cases))
+            cases = [
+                path + "/" + input_base + str(case_no).zfill(2) + version + ".vtk"
+                for case_no in range(start, end + 1)
+            ]
+        print("Cases: {}".format(cases))
         for case in cases:
             single_model = Model(case)
-            print('Executing single_model.' + function_ + args)
-            exec('single_model.' + function_ + args)
+            print("Executing single_model." + function_ + args)
+            exec("single_model." + function_ + args)
             if ext is not None:
                 single_model.write_vtk(postscript=ext, type_=ext_type)
+
 
 # ------------------------------------------------------------------------------------------------------------
 
 
-if __name__ == '__main__':
-
+if __name__ == "__main__":
     pass
